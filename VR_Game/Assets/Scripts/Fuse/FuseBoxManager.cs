@@ -2,25 +2,38 @@ using UnityEngine;
 
 public class FuseBoxManager : MonoBehaviour
 {
-    public Light[] lightsToTurnOn; // Assign lights in the inspector
+    public Light bulbLight;
+    public MeshRenderer bulbRenderer;
+    public Material bulbOnMaterial;
+
     private int correctFusesInserted = 0;
+
+    [Tooltip("How many fuses must be inserted to turn on the light?")]
     public int totalRequiredFuses = 3;
 
     public void InsertFuse()
     {
-        correctFusesInserted++;
+        // Prevent going over
         if (correctFusesInserted >= totalRequiredFuses)
+            return;
+
+        correctFusesInserted++;
+        Debug.Log("Fuse inserted. Count = " + correctFusesInserted);
+
+        if (correctFusesInserted == totalRequiredFuses)
         {
-            TurnOnLights();
+            TurnOnBulb();
         }
     }
 
-    void TurnOnLights()
+    void TurnOnBulb()
     {
-        foreach (Light light in lightsToTurnOn)
-        {
-            light.enabled = true;
-        }
-        Debug.Log("Lights turned on!");
+        Debug.Log("All fuses inserted. Turning on bulb.");
+
+        if (bulbLight != null)
+            bulbLight.enabled = true;
+
+        if (bulbRenderer != null && bulbOnMaterial != null)
+            bulbRenderer.material = bulbOnMaterial;
     }
 }
