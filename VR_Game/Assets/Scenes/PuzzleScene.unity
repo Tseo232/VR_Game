@@ -335,7 +335,7 @@ GameObject:
   - component: {fileID: 287126895}
   - component: {fileID: 287126894}
   m_Layer: 5
-  m_Name: Wheel
+  m_Name: Pole
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8297,19 +8297,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1714913461311663500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4698876553365112707}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bb83e3cfa27c6d4487384ed695c76bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Velocity: {x: 0, y: 5, z: 0}
 --- !u!23 &1718154111912738759
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -16541,7 +16528,6 @@ GameObject:
   - component: {fileID: 8088044976339641781}
   - component: {fileID: 4938162025014692630}
   - component: {fileID: 8971308155787595449}
-  - component: {fileID: 1714913461311663500}
   m_Layer: 0
   m_Name: Valve
   m_TagString: Untagged
@@ -19047,7 +19033,7 @@ GameObject:
   - component: {fileID: 4299781972534523336}
   - component: {fileID: 5898826884146200348}
   m_Layer: 5
-  m_Name: Cyclinder
+  m_Name: Wheel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28193,7 +28179,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 94
   m_CollisionDetection: 0
 --- !u!1 &8135658148727694399
 GameObject:
