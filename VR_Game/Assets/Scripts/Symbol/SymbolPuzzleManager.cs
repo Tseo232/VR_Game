@@ -3,7 +3,7 @@ using UnityEngine;
 public class SymbolPuzzleManager : MonoBehaviour
 {
     public SymbolDial[] dials;
-    public GameObject hiddenDoor;
+    public Animator doorAnimator; // Reference to Animator
 
     public void CheckPuzzle()
     {
@@ -12,7 +12,7 @@ public class SymbolPuzzleManager : MonoBehaviour
             if (!dial.IsCorrect()) return;
         }
 
-        hiddenDoor.SetActive(false); // or animate
+        doorAnimator.SetTrigger("Open"); // Triggers door animation
         Debug.Log("Puzzle Solved!");
     }
 }
