@@ -1,5 +1,4 @@
 using UnityEngine;
-
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Valve : MonoBehaviour
@@ -21,7 +20,6 @@ public class Valve : MonoBehaviour
     {
         lastAngle = transform.localEulerAngles.y;
 
-        // Get components to disable later
         rb = GetComponent<Rigidbody>();
         grab = GetComponent<XRGrabInteractable>();
         hinge = GetComponent<HingeJoint>();
@@ -33,16 +31,15 @@ public class Valve : MonoBehaviour
 
         float currentAngle = transform.localEulerAngles.y;
         float deltaAngle = Mathf.DeltaAngle(lastAngle, currentAngle);
-        totalRotation += Mathf.Abs(deltaAngle);
+        totalRotation += deltaAngle; // Note: signed change
         lastAngle = currentAngle;
 
-        Debug.Log($"Total Rotation: {totalRotation}");
+        Debug.Log($"Signed Total Rotation: {totalRotation}");
 
-        if (totalRotation >= requiredRotation)
+        if (Mathf.Abs(totalRotation) >= requiredRotation)
         {
             activated = true;
 
-            // Trigger game logic
             manager.ValveActivated();
 
             if (shrinkAnimator != null)
@@ -51,9 +48,8 @@ public class Valve : MonoBehaviour
             if (growAnimator != null)
                 growAnimator.SetTrigger("Play");
 
-            Debug.Log("Valve fully rotated, animation triggered.");
+            Debug.Log("Valve fully rotated (in either direction), animation triggered.");
 
-            // ?? Lock valve in place
             LockValve();
         }
     }
@@ -61,10 +57,10 @@ public class Valve : MonoBehaviour
     private void LockValve()
     {
         if (grab != null)
-            grab.enabled = false; // Prevent future grabbing
+            grab.enabled = false;
 
         if (hinge != null)
-            Destroy(hinge); // Remove hinge to freeze rotation
+            Destroy(hinge);
 
         if (rb != null)
         {
