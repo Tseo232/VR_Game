@@ -3,18 +3,24 @@ using UnityEngine;
 public class SymbolDial : MonoBehaviour
 {
     public SymbolPuzzleManager manager;
-    public int correctIndex;
-    private int currentIndex = 0;
 
-    public void RotateSymbol()
-    {
-        currentIndex = (currentIndex + 1) % 4; // assuming 4 symbols
-        transform.Rotate(0, 90f, 0);
-        manager.CheckPuzzle();
-    }
+    [Range(0f, 360f)]
+    public float targetAngle = 35f;      // Set this in the Inspector
+    public float angleThreshold = 1f;    // Acceptable margin (e.g., ±1 degree)
 
-    public bool IsCorrect()
+    private bool triggered = false;
+
+    void Update()
     {
-        return currentIndex == correctIndex;
+        if (triggered) return;
+
+        float currentY = transform.eulerAngles.y % 360f;
+
+        // If dial is within the threshold of targetAngle
+        if (Mathf.Abs(Mathf.DeltaAngle(currentY, targetAngle)) <= angleThreshold)
+        {
+            triggered = true;
+            manager.DisableKnobAndTriggerDoor();
+        }
     }
 }

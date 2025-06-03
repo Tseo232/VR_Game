@@ -1,22 +1,19 @@
+using Unity.VRTemplate;
 using UnityEngine;
 
 public class SymbolPuzzleManager : MonoBehaviour
 {
-    public SymbolDial[] dials;
     public Animator doorAnimator;
+    public XRKnob XRKnob;
     private bool puzzleSolved = false;
 
-    public void CheckPuzzle()
+    public void DisableKnobAndTriggerDoor()
     {
         if (puzzleSolved) return;
 
-        foreach (SymbolDial dial in dials)
-        {
-            if (!dial.IsCorrect()) return;
-        }
-
+        XRKnob.enabled = false;
         puzzleSolved = true;
         doorAnimator.SetTrigger("Open");
-        Debug.Log("Puzzle Solved!");
+        Debug.Log("Dial reached target angle — Door Opened!");
     }
 }
