@@ -66,12 +66,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _Exponent: 1
-    - _Exponent1: 9
-    - _Exponent2: 9
+    - _Exponent1: -0.52
+    - _Exponent2: 5.04
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Intensity: 1
+    - _Intensity: -4.18
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
