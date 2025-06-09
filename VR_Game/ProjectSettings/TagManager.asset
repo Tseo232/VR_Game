@@ -9,6 +9,8 @@ TagManager:
   - MoveTarget
   - FuseSlot
   - Fuse
+  - Battery
+  - BatterySlot
   layers:
   - Default
   - TransparentFX

@@ -1,48 +1,47 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
-public class PowerGenerator : MonoBehaviour
+public class BatteryManager : MonoBehaviour
 {
-    [Header("Socket to check for battery")]
-    public XRSocketInteractor batterySocket;
+    [Header("Light or Object to Enable")]
+    public GameObject bulb, fuse;
+    
 
-    [Header("Objects to activate")]
-    public GameObject[] lightsToTurnOn;
-    public AudioSource generatorAudio;
-    public ParticleSystem powerEffect;
+    [Tooltip("How many batteries must be inserted to turn on the light?")]
+    public int requiredBatteries = 2;
 
+    private int batteriesInserted = 0;
     private bool isPowered = false;
 
-    void Update()
+    public void InsertBattery()
     {
-        if (!isPowered && batterySocket.hasSelection)
+        if (isPowered)
+            return;
+
+        if (batteriesInserted >= requiredBatteries)
+            return;
+
+        batteriesInserted++;
+        Debug.Log("Battery inserted. Count = " + batteriesInserted);
+
+        if (batteriesInserted == requiredBatteries)
         {
-            ActivatePower();
+            ActivateSystem();
         }
     }
 
-    void ActivatePower()
+    private void ActivateSystem()
     {
         isPowered = true;
-        Debug.Log("Generator powered!");
 
-        // Turn on all lights
-        foreach (var lightObj in lightsToTurnOn)
+        if (bulb != null)
         {
-            if (lightObj.TryGetComponent<Light>(out Light light))
-            {
-                light.enabled = true;
-            }
-            else
-            {
-                lightObj.SetActive(true); // fallback
-            }
+            bulb.SetActive(true);
+            fuse.SetActive(true);
+            Debug.Log("System activated: Bulb turned on.");
         }
-
-        // Play SFX and VFX
-        if (generatorAudio) generatorAudio.Play();
-        if (powerEffect) powerEffect.Play();
+        else
+        {
+            Debug.LogWarning("No bulb GameObject assigned.");
+        }
     }
 }
-

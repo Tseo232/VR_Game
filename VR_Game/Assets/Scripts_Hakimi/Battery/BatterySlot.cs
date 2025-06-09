@@ -2,21 +2,21 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
-public class FuseSlot : MonoBehaviour
+public class BatterySlot : MonoBehaviour
 {
-    public FuseBoxManager manager;
-    public GameObject fuse, fuseobj;
+    public BatteryManager manager;
+    public GameObject battery, batteryobj;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Fuse"))
+        if (other.gameObject == batteryobj)
         {
             // Disable grab interaction and physics
             XRGrabInteractable grabInteractable = other.GetComponent<XRGrabInteractable>();
             if (grabInteractable != null)
                 grabInteractable.enabled = false;
-                Destroy(fuseobj);
-                fuse.SetActive(true); 
+            Destroy(batteryobj);
+            battery.SetActive(true);
             // Snap the battery into place
             other.transform.position = transform.position;
             other.transform.rotation = transform.rotation;
@@ -25,7 +25,7 @@ public class FuseSlot : MonoBehaviour
             other.transform.SetParent(transform);
 
             // Register battery insertion
-            manager.InsertFuse();
+            manager.InsertBattery();
 
             // Optional: disable this collider to prevent multiple triggers
             GetComponent<Collider>().enabled = false;

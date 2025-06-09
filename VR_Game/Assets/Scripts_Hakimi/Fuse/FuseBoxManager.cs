@@ -2,18 +2,16 @@ using UnityEngine;
 
 public class FuseBoxManager : MonoBehaviour
 {
-    public Light bulbLight;
-    public MeshRenderer bulbRenderer;
-    public Material bulbOnMaterial;
+    [Header("Door Animation")]
+    public Animator door;
 
     private int correctFusesInserted = 0;
 
-    [Tooltip("How many fuses must be inserted to turn on the light?")]
-    public int totalRequiredFuses = 3;
+    [Tooltip("How many fuses must be inserted to open the door?")]
+    public int totalRequiredFuses = 1;
 
     public void InsertFuse()
     {
-        // Prevent going over
         if (correctFusesInserted >= totalRequiredFuses)
             return;
 
@@ -22,18 +20,16 @@ public class FuseBoxManager : MonoBehaviour
 
         if (correctFusesInserted == totalRequiredFuses)
         {
-            TurnOnBulb();
+            TriggerDoorOpen();
         }
     }
 
-    void TurnOnBulb()
+    private void TriggerDoorOpen()
     {
-        Debug.Log("All fuses inserted. Turning on bulb.");
-
-        if (bulbLight != null)
-            bulbLight.enabled = true;
-
-        if (bulbRenderer != null && bulbOnMaterial != null)
-            bulbRenderer.material = bulbOnMaterial;
+        if (door != null)
+        {
+            door.SetTrigger("Open");
+        }
+       
     }
 }
