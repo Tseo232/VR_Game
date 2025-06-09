@@ -28,7 +28,7 @@ namespace NavKeypad
             interactable.selectEntered.AddListener(OnPressed);
         }
 
-        private void OnPressed(SelectEnterEventArgs args)
+        public void OnPressed(SelectEnterEventArgs args)
         {
             if (!moving)
             {

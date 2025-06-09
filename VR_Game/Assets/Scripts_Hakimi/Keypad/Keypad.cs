@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -40,6 +40,9 @@ namespace NavKeypad
         [SerializeField] private Renderer panelMesh;
         [SerializeField] private TMP_Text keypadDisplayText;
         [SerializeField] private AudioSource audioSource;
+
+        [Header("Door Reference")]
+        [SerializeField] private SlidingDoor door; // <-- Reference to the door script
 
         private string currentInput;
         private bool displayingResult = false;
@@ -117,6 +120,16 @@ namespace NavKeypad
             onAccessGranted?.Invoke();
             panelMesh.material.SetVector("_EmissionColor", screenGrantedColor * screenIntensity);
             audioSource.PlayOneShot(accessGrantedSfx);
+
+            // 🔓 Open the door
+            if (door != null)
+            {
+                door.OpenDoor();
+            }
+            else
+            {
+                Debug.LogWarning("No door reference assigned to keypad.");
+            }
         }
     }
 }

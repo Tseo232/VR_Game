@@ -5,6 +5,10 @@ TagManager:
   serializedVersion: 3
   tags:
   - Anchor
+  - Stackable
+  - MoveTarget
+  - FuseSlot
+  - Fuse
   layers:
   - Default
   - TransparentFX
