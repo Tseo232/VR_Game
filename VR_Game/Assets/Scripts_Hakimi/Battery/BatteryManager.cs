@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class BatteryManager : MonoBehaviour
 {
-    [Header("Light or Object to Enable")]
-    public GameObject bulb, fuse;
+ 
+    public GameObject bulb,bulb1, fuse;
     
 
     [Tooltip("How many batteries must be inserted to turn on the light?")]
@@ -36,6 +36,7 @@ public class BatteryManager : MonoBehaviour
         if (bulb != null)
         {
             bulb.SetActive(true);
+            bulb1.SetActive(true);
             fuse.SetActive(true);
             Debug.Log("System activated: Bulb turned on.");
         }
