@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 namespace NavKeypad
 {
@@ -34,10 +35,13 @@ namespace NavKeypad
                 keypad.AddInput(value);
                 StartCoroutine(MoveSmooth());
 
-                // Optional: Haptic feedback
-                if (args.interactorObject is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controller)
+                // Optional: Haptic feedback (only if using XR controllers)
+                if (args.interactorObject is IXRInteractor interactor)
                 {
-                    controller.SendHapticImpulse(0.5f, 0.1f);
+                    if (interactor.transform.TryGetComponent(out XRBaseInputInteractor controllerInteractor))
+                    {
+                        controllerInteractor.SendHapticImpulse(0.5f, 0.1f);
+                    }
                 }
             }
         }
