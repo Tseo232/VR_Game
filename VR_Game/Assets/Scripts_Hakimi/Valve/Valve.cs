@@ -1,11 +1,14 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
 
 public class Valve : MonoBehaviour
 {
+    [Header("Valve Settings")]
     public ValveManager manager;
     public Animator shrinkAnimator;
+    public GameObject time;
     public Animator growAnimator;
+    public Animator door;
     public float requiredRotation = 360f;
 
     private float lastAngle;
@@ -31,7 +34,7 @@ public class Valve : MonoBehaviour
 
         float currentAngle = transform.localEulerAngles.y;
         float deltaAngle = Mathf.DeltaAngle(lastAngle, currentAngle);
-        totalRotation += deltaAngle; // Note: signed change
+        totalRotation += deltaAngle;
         lastAngle = currentAngle;
 
         Debug.Log($"Signed Total Rotation: {totalRotation}");
@@ -48,7 +51,14 @@ public class Valve : MonoBehaviour
             if (growAnimator != null)
                 growAnimator.SetTrigger("Play");
 
-            Debug.Log("Valve fully rotated (in either direction), animation triggered.");
+            if (door != null)
+            {
+                door.SetTrigger("Open"); // ✅ Trigger the door animation
+                time.SetActive(true);
+            }
+                
+
+            Debug.Log("Valve fully rotated (in either direction), animations triggered.");
 
             LockValve();
         }

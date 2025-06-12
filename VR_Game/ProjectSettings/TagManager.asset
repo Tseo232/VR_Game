@@ -11,6 +11,7 @@ TagManager:
   - Fuse
   - Battery
   - BatterySlot
+  - GoalZone
   layers:
   - Default
   - TransparentFX
