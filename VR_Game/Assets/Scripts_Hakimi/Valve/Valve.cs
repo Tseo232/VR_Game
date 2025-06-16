@@ -1,63 +1,43 @@
 ﻿using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
+using TMPro;
 
 public class Valve : MonoBehaviour
 {
-    [Header("Valve Settings")]
     public ValveManager manager;
-    public Animator shrinkAnimator;
-    public GameObject time;
-    public Animator growAnimator;
-    public Animator door;
-    public float requiredRotation = 360f;
+    public Animator shrink, grow;
+    public Rigidbody valve;
 
-    private float lastAngle;
-    private float totalRotation;
-    private bool activated = false;
+    [Range(0f, 360f)]
+    public float targetAngle = 35f;
+    public float angleThreshold = 1f;
 
-    private Rigidbody rb;
-    private XRGrabInteractable grab;
-    private HingeJoint hinge;
+    public TMP_Text angleText;
 
-    void Start()
-    {
-        lastAngle = transform.localEulerAngles.y;
-
-        rb = GetComponent<Rigidbody>();
-        grab = GetComponent<XRGrabInteractable>();
-        hinge = GetComponent<HingeJoint>();
-    }
+    private bool triggered = false;
 
     void Update()
     {
-        if (activated) return;
+        if (triggered) return;
 
-        float currentAngle = transform.localEulerAngles.y;
-        float deltaAngle = Mathf.DeltaAngle(lastAngle, currentAngle);
-        totalRotation += deltaAngle;
-        lastAngle = currentAngle;
+        Vector3 rotation = transform.localEulerAngles;
+        float angle = rotation.y; // Change to Z or X if needed
 
+        Debug.Log($"Dial Rotation Y: {angle}");
 
-        if (Mathf.Abs(totalRotation) >= requiredRotation)
+        int angleInt = Mathf.RoundToInt(angle % 360f);
+        angleText.text = $"{angleInt}°";
+
+        if (Mathf.Abs(Mathf.DeltaAngle(angle, targetAngle)) <= angleThreshold)
         {
-            activated = true;
+            triggered = true;
+            valve.constraints |= RigidbodyConstraints.FreezeRotationY;
+            manager.FreezeValveAndTriggerDoor();
 
-            manager.ValveActivated();
+            if (shrink != null)
+                shrink.SetTrigger("Play");
 
-            if (shrinkAnimator != null)
-                shrinkAnimator.SetTrigger("Play");
-
-            if (growAnimator != null)
-                growAnimator.SetTrigger("Play");
-
-            if (door != null)
-            {
-                door.SetTrigger("Open"); // ✅ Trigger the door animation
-                time.SetActive(true);
-            }
-                
-
-            Debug.Log("Valve fully rotated (in either direction), animations triggered.");
+            if (grow != null)
+                grow.SetTrigger("Play");
 
         }
     }
