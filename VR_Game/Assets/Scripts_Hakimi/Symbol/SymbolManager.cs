@@ -1,23 +1,36 @@
-using Unity.VRTemplate;
 using UnityEngine;
+using Unity.VRTemplate;
 
 public class SymbolManager : MonoBehaviour
 {
     public Animator doorAnimator;
     public XRKnob XRKnob;
-    
+
+    [Header("Puzzle Settings")]
+    public int totalDials = 3; // Set to number of dials in the Inspector
+
+    private int dialsSolved = 0;
     private bool puzzleSolved = false;
 
-    public void DisableKnobAndTriggerDoor()
+    // Called by dials when they reach their target
+    public void OnDialSolved()
     {
         if (puzzleSolved) return;
 
-        XRKnob.enabled = false;
-        puzzleSolved = true;
+        dialsSolved++;
+        Debug.Log($"Dial solved: {dialsSolved}/{totalDials}");
 
-        // Trigger door open animation
-        doorAnimator.SetTrigger("Open");
+        if (dialsSolved >= totalDials)
+        {
+            puzzleSolved = true;
 
+            if (XRKnob != null)
+                XRKnob.enabled = false;
+
+            if (doorAnimator != null)
+                doorAnimator.SetTrigger("Open");
+
+            Debug.Log("All dials solved. Door opening!");
+        }
     }
-
 }
