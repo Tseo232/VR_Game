@@ -12,6 +12,7 @@ TagManager:
   - Battery
   - BatterySlot
   - GoalZone
+  - Valve
   layers:
   - Default
   - TransparentFX

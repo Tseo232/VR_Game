@@ -1,4 +1,4 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -19,7 +19,6 @@ public class SymbolDial : MonoBehaviour
 
     void Start()
     {
-        // Optional: Auto-assign if not set
         if (dial == null) dial = GetComponent<Rigidbody>();
         grab = GetComponent<XRGrabInteractable>();
     }
@@ -32,24 +31,26 @@ public class SymbolDial : MonoBehaviour
         int displayAngle = Mathf.RoundToInt(angle % 360f);
 
         if (angleText != null)
-            angleText.text = $"{displayAngle}°";
+            angleText.text = $"{displayAngle}Â°";
 
+        // Check if dial is at the correct angle
         if (Mathf.Abs(Mathf.DeltaAngle(angle, targetAngle)) <= angleThreshold)
         {
             triggered = true;
 
-            // Freeze this dial's rotation on Y
+            // Freeze only this dial's rotation
             if (dial != null)
                 dial.constraints |= RigidbodyConstraints.FreezeRotationY;
 
-            // Disable grabbing (optional for VR control)
+            // Optional: stop grabbing interaction
             if (grab != null)
                 grab.enabled = false;
 
+            // Notify manager this dial is solved
             if (manager != null)
                 manager.OnDialSolved();
 
-            Debug.Log($"{gameObject.name} dial solved at {displayAngle}°");
+            Debug.Log($"{gameObject.name} dial solved at {displayAngle}Â°");
         }
     }
 }
