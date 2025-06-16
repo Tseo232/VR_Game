@@ -37,7 +37,6 @@ public class Valve : MonoBehaviour
         totalRotation += deltaAngle;
         lastAngle = currentAngle;
 
-        Debug.Log($"Signed Total Rotation: {totalRotation}");
 
         if (Mathf.Abs(totalRotation) >= requiredRotation)
         {
@@ -60,23 +59,6 @@ public class Valve : MonoBehaviour
 
             Debug.Log("Valve fully rotated (in either direction), animations triggered.");
 
-            LockValve();
-        }
-    }
-
-    private void LockValve()
-    {
-        if (grab != null)
-            grab.enabled = false;
-
-        if (hinge != null)
-            Destroy(hinge);
-
-        if (rb != null)
-        {
-            rb.constraints = RigidbodyConstraints.FreezeAll;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
         }
     }
 }

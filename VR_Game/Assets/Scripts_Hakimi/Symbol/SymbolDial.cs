@@ -3,6 +3,7 @@ using UnityEngine;
 public class SymbolDial : MonoBehaviour
 {
     public SymbolPuzzleManager manager;
+    
 
     [Range(0f, 360f)]
     public float targetAngle = 35f;      // Set this in the Inspector
