@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class FuseSlot : MonoBehaviour
 {
     public FuseBoxManager manager;
+    public AudioSource inserted;
     public GameObject fuse, fuseobj;
 
     private void OnTriggerEnter(Collider other)
@@ -16,6 +17,7 @@ public class FuseSlot : MonoBehaviour
             if (grabInteractable != null)
                 grabInteractable.enabled = false;
                 Destroy(fuseobj);
+            inserted.Play();
                 fuse.SetActive(true); 
             // Snap the battery into place
             other.transform.position = transform.position;

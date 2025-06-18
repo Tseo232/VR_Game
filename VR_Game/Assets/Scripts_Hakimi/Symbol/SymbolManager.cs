@@ -4,6 +4,7 @@ using Unity.VRTemplate;
 public class SymbolManager : MonoBehaviour
 {
     public Animator doorAnimator;
+    public AudioSource door;
 
     [Header("Knobs for Each Dial")]
     public XRKnob[] xrKnobs; // Drag 3 XRKnobs here in the Inspector
@@ -33,7 +34,11 @@ public class SymbolManager : MonoBehaviour
             }
 
             if (doorAnimator != null)
+            {
                 doorAnimator.SetTrigger("Open");
+                door.Play();
+            }
+                
 
             Debug.Log("✅ All dials solved. Door opening!");
         }

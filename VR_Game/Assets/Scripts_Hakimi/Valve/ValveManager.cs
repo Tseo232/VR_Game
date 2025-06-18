@@ -4,6 +4,7 @@ using UnityEngine;
 public class ValveManager : MonoBehaviour
 {
     public Animator doorAnimator;
+    public AudioSource door;
     public XRKnob XRKnob;
 
     private bool puzzleSolved = false;
@@ -17,7 +18,7 @@ public class ValveManager : MonoBehaviour
 
         // Trigger door open animation
         doorAnimator.SetTrigger("Open");
-
+        door.Play();
     }
 
 }

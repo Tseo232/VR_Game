@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class BatteryManager : MonoBehaviour
 {
- 
-    public GameObject bulb,bulb1, fuse;
-    
+    public GameObject bulb, bulb1, fuse;
+    public AudioSource plop;
 
     [Tooltip("How many batteries must be inserted to turn on the light?")]
     public int requiredBatteries = 2;
@@ -14,14 +13,21 @@ public class BatteryManager : MonoBehaviour
 
     public void InsertBattery()
     {
-        if (isPowered)
-            return;
-
-        if (batteriesInserted >= requiredBatteries)
+        if (isPowered || batteriesInserted >= requiredBatteries)
             return;
 
         batteriesInserted++;
         Debug.Log("Battery inserted. Count = " + batteriesInserted);
+
+        // Play the plop sound
+        if (plop != null)
+        {
+            plop.Play();
+        }
+        else
+        {
+            Debug.LogWarning("No AudioSource assigned for 'plop'.");
+        }
 
         if (batteriesInserted == requiredBatteries)
         {
@@ -33,16 +39,17 @@ public class BatteryManager : MonoBehaviour
     {
         isPowered = true;
 
-        if (bulb != null)
+        if (bulb != null && bulb1 != null && fuse != null)
         {
             bulb.SetActive(true);
             bulb1.SetActive(true);
             fuse.SetActive(true);
+
             Debug.Log("System activated: Bulb turned on.");
         }
         else
         {
-            Debug.LogWarning("No bulb GameObject assigned.");
+            Debug.LogWarning("Missing GameObject reference(s) for activation.");
         }
     }
 }

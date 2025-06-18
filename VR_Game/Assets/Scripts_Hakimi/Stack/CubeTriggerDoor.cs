@@ -5,7 +5,8 @@ public class CubeGoalTrigger : MonoBehaviour
 {
     [Header("Settings")]
     public GameObject goalZone;                  // Assign the specific GoalZone GameObject here
-    public Animator doorAnimator;                // Door animator to trigger
+    public Animator doorAnimator;   // Door animator to trigger
+    public AudioSource door;
     public float velocityThreshold = 0.01f;     // Threshold for stationary check
     public float checkDelay = 0.3f;
 
@@ -65,6 +66,7 @@ public class CubeGoalTrigger : MonoBehaviour
             Debug.Log("Cube is stationary and collided with GoalZone. Triggering door.");
             if (doorAnimator != null)
                 doorAnimator.SetTrigger("Open");
+            door.Play();
             hasTriggeredDoor = true;
         }
         else

@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactables;
 public class ValveSlot : MonoBehaviour
 {
     public GameObject valve, valveObj, pole;
+    public AudioSource inserted;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,6 +18,7 @@ public class ValveSlot : MonoBehaviour
             Destroy(valveObj);
             pole.SetActive(false);
             valve.SetActive(true);
+            inserted.Play();
             // Snap the battery into place
             other.transform.position = transform.position;
             other.transform.rotation = transform.rotation;
