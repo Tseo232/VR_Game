@@ -6,7 +6,7 @@ public class ClockPuzzle : MonoBehaviour
     [Header("Clock Display")]
     public TextMeshPro clockDisplay;
 
-    public AudioSource clock;
+    public AudioSource clock, incorrect;
 
     [Header("Time Settings")]
     public int hour = 0;
@@ -60,6 +60,7 @@ public class ClockPuzzle : MonoBehaviour
         }
         else
         {
+            incorrect.Play();
             Debug.Log("Incorrect time");
         }
     }
