@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 488696522}
   - component: {fileID: 488696521}
   m_Layer: 5
-  m_Name: start button  (1)
+  m_Name: Quite button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -499,7 +499,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8408429622581014100}
         m_TargetAssemblyTypeName: LevelTransition, Assembly-CSharp
-        m_MethodName: LoadNextLevel
+        m_MethodName: QuitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

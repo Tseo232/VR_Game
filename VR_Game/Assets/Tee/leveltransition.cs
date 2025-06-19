@@ -25,9 +25,13 @@ public class LevelTransition : MonoBehaviour
     // This function loads the next scene in the build settings
     public void LoadNextLevel()
     {
-       
-      SceneManager.LoadScene("Final");
-        
-        
+
+        SceneManager.LoadScene("Final");
+
+
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
