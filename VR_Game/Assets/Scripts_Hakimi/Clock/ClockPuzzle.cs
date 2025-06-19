@@ -6,6 +6,8 @@ public class ClockPuzzle : MonoBehaviour
     [Header("Clock Display")]
     public TextMeshPro clockDisplay;
 
+    public AudioSource clock;
+
     [Header("Time Settings")]
     public int hour = 0;
     public int minute = 0;
@@ -54,6 +56,7 @@ public class ClockPuzzle : MonoBehaviour
             // Trigger door animation
             if (doorAnimator != null)
                 doorAnimator.SetTrigger("Open");
+            clock.Play();
         }
         else
         {
